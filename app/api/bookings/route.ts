@@ -1,5 +1,5 @@
 import { NextResponse } from 'next/server'
-import { prisma } from '@/lib/prisma'
+import { getPrismaClient } from '@/lib/prisma'
 import { z } from 'zod'
 
 const bookingSchema = z.object({
@@ -14,6 +14,7 @@ const bookingSchema = z.object({
 
 export async function POST(request: Request) {
   try {
+    const prisma = getPrismaClient()
     const body = await request.json()
     const validatedData = bookingSchema.parse(body)
 

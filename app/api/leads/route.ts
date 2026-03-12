@@ -1,5 +1,5 @@
 import { NextResponse } from 'next/server'
-import { prisma } from '@/lib/prisma'
+import { getPrismaClient } from '@/lib/prisma'
 import { z } from 'zod'
 
 const leadSchema = z.object({
@@ -10,6 +10,7 @@ const leadSchema = z.object({
 
 export async function POST(request: Request) {
   try {
+    const prisma = getPrismaClient()
     const body = await request.json()
     const validatedData = leadSchema.parse(body)
 
