@@ -1,11 +1,12 @@
-import { PrismaClient } from '@prisma/client'
+type PrismaClientType = import('@prisma/client').PrismaClient
 
 const globalForPrisma = globalThis as unknown as {
-  prisma: PrismaClient | undefined
+  prisma: PrismaClientType | undefined
 }
 
-export function getPrismaClient() {
+export async function getPrismaClient() {
   if (!globalForPrisma.prisma) {
+    const { PrismaClient } = await import('@prisma/client')
     globalForPrisma.prisma = new PrismaClient()
   }
 

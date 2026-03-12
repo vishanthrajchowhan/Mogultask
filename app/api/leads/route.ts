@@ -10,7 +10,7 @@ const leadSchema = z.object({
 
 export async function POST(request: Request) {
   try {
-    const prisma = getPrismaClient()
+    const prisma = await getPrismaClient()
     const body = await request.json()
     const validatedData = leadSchema.parse(body)
 
